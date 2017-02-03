@@ -19,4 +19,31 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/addNew', (req, res, next)=>{
+	res.render('addNew', {});
+})
+
+router.post('/addNew', (req, res, next)=>{
+	var newStudentName = req.body.newStudentName;
+	db.collection('students').insertOne({
+		name: newStudentName
+	})
+	res.redirect('/')
+})
+
+router.get('/deleteStudent', (req, res, next)=>{
+	res.render('deleteStudent', {});
+})
+
+router.post('/deleteStudent', (req, res, next)=>{
+	var studentToDelete = req.body.studentToDelete;
+	db.collection('students').deleteOne({
+		name: studentToDelete
+	})
+	res.redirect('/')
+
+})
+
+
+
 module.exports = router;
